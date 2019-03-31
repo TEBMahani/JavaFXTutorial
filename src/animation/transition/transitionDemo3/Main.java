@@ -7,6 +7,7 @@ package animation.transition.transitionDemo3;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
@@ -84,9 +85,9 @@ public class Main
       
       Ellipse petal;
       
-      petal = new Ellipse(centerX, centerY, 20, 15);
-      petal.setFill(Color.PURPLE);
-      petal.setStroke(Color.PLUM);
+      petal = new Ellipse(centerX, centerY, 20, 15); 
+      petal.setFill(Color.GREY);
+   //   petal.setStroke(Color.PLUM);
       petal.setRotate(rotate);
       
       return petal;
@@ -116,6 +117,15 @@ public class Main
          leafRight;
       
       FadeTransition coreFadeTransition;
+      FillTransition 
+         petal1FillTransition,
+         petal2FillTransition,
+         petal3FillTransition,
+         petal4FillTransition,
+         petal5FillTransition,
+         petal6FillTransition,
+         petal7FillTransition,
+         petal8FillTransition;
       ParallelTransition 
          parallelTransition,
          totalParallelTransition;
@@ -124,7 +134,9 @@ public class Main
          leafRightPathTransition;
       RotateTransition leafRightRotateTransition;
       ScaleTransition stalkScaleTransition;
-      SequentialTransition sequentialTransition;
+      SequentialTransition 
+         sequentialTransition,
+         petalsSequaentialTransition;
       TranslateTransition leafRightTranslateTransition;
       
       Pane pane;
@@ -145,6 +157,14 @@ public class Main
       petal6 = this.petal(125, 100, 180);
       petal7 = this.petal(115, 120, 45);
       petal8 = this.petal(100, 130, 90);
+      petal1FillTransition = Transitions.fill(Duration.seconds(5), petal1);
+      petal2FillTransition = Transitions.fill(Duration.seconds(5), petal2);
+      petal3FillTransition = Transitions.fill(Duration.seconds(5), petal3);
+      petal4FillTransition = Transitions.fill(Duration.seconds(5), petal4);
+      petal5FillTransition = Transitions.fill(Duration.seconds(5), petal5);
+      petal6FillTransition = Transitions.fill(Duration.seconds(5), petal6);
+      petal7FillTransition = Transitions.fill(Duration.seconds(5), petal7);
+      petal8FillTransition = Transitions.fill(Duration.seconds(5), petal8);
       
       leafLeft = this.leaf();
       leafLeftPathTransition = Transitions.path(Duration.seconds(10), leafLeft, "Left");
@@ -154,7 +174,8 @@ public class Main
       leafRightTranslateTransition = Transitions.translate(Duration.seconds(2), leafRight);
       
       parallelTransition = Transitions.paralle(new Animation[] {leafLeftPathTransition, leafRightPathTransition});
-      sequentialTransition = Transitions.sequential(new Animation[] {stalkScaleTransition, parallelTransition, leafRightRotateTransition, leafRightTranslateTransition});
+      petalsSequaentialTransition = Transitions.sequential(new Animation[] {petal1FillTransition, petal2FillTransition, petal3FillTransition, petal4FillTransition, petal5FillTransition, petal6FillTransition, petal7FillTransition, petal8FillTransition});
+      sequentialTransition = Transitions.sequential(new Animation[] {stalkScaleTransition, parallelTransition, leafRightRotateTransition, leafRightTranslateTransition, petalsSequaentialTransition});
       totalParallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, sequentialTransition});
       totalParallelTransition.play();
       
@@ -162,7 +183,7 @@ public class Main
       pane.setStyle("-fx-background-color: grey");
       pane.getChildren().addAll(
          stalk,
-    //     petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
+         petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
          leafRight, leafLeft,
          core);
       

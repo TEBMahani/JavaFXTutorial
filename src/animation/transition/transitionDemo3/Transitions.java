@@ -7,6 +7,7 @@ package animation.transition.transitionDemo3;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
@@ -14,6 +15,7 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.QuadCurveTo;
@@ -55,6 +57,19 @@ public class Transitions{
       return fd;
       
    } // End of fade(Duration duration, Shape shape)
+   
+   public static FillTransition fill(Duration duration, Shape shape) {
+      
+      FillTransition ft;
+      
+      ft = new FillTransition(duration);
+         ft.setToValue(Color.PURPLE);
+         ft.setShape(shape);
+         ft.setCycleCount(1);
+      
+      return ft;
+      
+   }
    
    public static ParallelTransition paralle(Animation[] animations) {
       
