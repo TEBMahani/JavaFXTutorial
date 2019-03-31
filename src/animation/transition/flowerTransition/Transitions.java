@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package animation.transition.transitionDemo3;
+package animation.transition.flowerTransition;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
