@@ -6,7 +6,11 @@
 package animation.transition.transitionDemo3;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.QuadCurveTo;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
@@ -44,7 +48,54 @@ public class Transitions{
       
       return fd;
       
-   } // End of fade(Shape shape)
+   } // End of fade(Duration duration, Shape shape)
+   
+   private static Path leftPath() {
+      
+      Path path;
+      
+      path = new Path();
+      path.getElements().add(new MoveTo(0, 0));
+      path.getElements().add(new QuadCurveTo(200, 70, 80, 187));
+      
+      return path;
+      
+   } // End of leftPath()
+   
+   private static Path rightPath() {
+      
+      Path path;
+      
+      path = new Path();
+      path.getElements().add(new MoveTo(200, 0));
+      path.getElements().add(new QuadCurveTo(120, 50, 85, 155));
+      
+      return path;
+      
+   } // End of rightPath()
+   
+   public static PathTransition path(Duration duration, Shape shape, String side) {
+      
+      Path path;
+      PathTransition pt;
+      
+      if(side.equalsIgnoreCase("Left")) {
+         path = Transitions.leftPath();
+      } // End of if(side.equalsIgnoreCase("Left"))
+      else {
+         path = Transitions.rightPath();
+      } // End of else
+          
+      pt = new PathTransition();
+      pt.setCycleCount(1);
+      pt.setDuration(duration);
+      pt.setNode(shape);
+      pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+      pt.setPath(path);
+     
+      return pt;
+      
+   } // End of path(Duration duration, Shape shape, String side)
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                         //	*** Setter Methods ***

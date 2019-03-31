@@ -11,6 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.QuadCurveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -54,6 +57,9 @@ public class Main
          petal6,
          petal7,
          petal8;
+      Path 
+         leafLeft,
+         leafRight;
       
       Pane pane;
       Scene scene;
@@ -69,13 +75,17 @@ public class Main
       petal6 = this.petal(125, 100, 180);
       petal7 = this.petal(115, 120, 45);
       petal8 = this.petal(100, 130, 90);
-    //  Transitions.fade(Duration.seconds(5), ellipse).play();
+      
+      leafLeft = this.leaf();
+      Transitions.path(Duration.seconds(10), leafLeft, "Left").play();
+      leafRight = this.leaf();
+      Transitions.path(Duration.seconds(10), leafRight, "Right").play();
       
       pane = new Pane();
       pane.setStyle("-fx-background-color: grey");
       pane.getChildren().addAll(
          petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
-         core);
+         leafRight, core , leafLeft);
       
       scene = new Scene(pane, 200, 200);
       stage.setScene(scene);
@@ -94,6 +104,22 @@ public class Main
       return core;
       
    } // End of core(Circle core)
+   
+   private Path leaf() {
+      
+      Path path;
+      
+      path = new Path();
+      path.setFill(Color.GREENYELLOW);
+      path.setStroke(null);
+      
+      path.getElements().add(new MoveTo(0, 0));
+      path.getElements().add(new QuadCurveTo(20, 20, 0, 40));
+      path.getElements().add(new QuadCurveTo(-10, 15, -5, 0));
+      
+      return path;
+      
+   } // End of leaf(double rotate)
    
    private Ellipse petal(
       double centerX,
