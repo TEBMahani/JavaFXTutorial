@@ -10,6 +10,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
@@ -18,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.QuadCurveTo;
@@ -108,6 +110,7 @@ public class Main
          petal6,
          petal7,
          petal8;
+      Line stalk;
       Path 
          leafLeft,
          leafRight;
@@ -120,11 +123,16 @@ public class Main
          leafLeftPathTransition,
          leafRightPathTransition;
       RotateTransition leafRightRotateTransition;
+      ScaleTransition stalkScaleTransition;
       SequentialTransition sequentialTransition;
       TranslateTransition leafRightTranslateTransition;
       
       Pane pane;
       Scene scene;
+      
+      stalk = new Line(100, 200, 100, 200);
+      stalk.setStroke(Color.BROWN);
+      stalkScaleTransition = Transitions.scale(Duration.seconds(5), stalk);
       
       core = this.core();
       coreFadeTransition = Transitions.fade(Duration.seconds(5), core);
@@ -146,15 +154,17 @@ public class Main
       leafRightTranslateTransition = Transitions.translate(Duration.seconds(2), leafRight);
       
       parallelTransition = Transitions.paralle(new Animation[] {leafLeftPathTransition, leafRightPathTransition});
-      sequentialTransition = Transitions.sequential(new Animation[] {parallelTransition, leafRightRotateTransition, leafRightTranslateTransition});
+      sequentialTransition = Transitions.sequential(new Animation[] {stalkScaleTransition, parallelTransition, leafRightRotateTransition, leafRightTranslateTransition});
       totalParallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, sequentialTransition});
       totalParallelTransition.play();
       
       pane = new Pane();
       pane.setStyle("-fx-background-color: grey");
       pane.getChildren().addAll(
-         petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
-         leafRight, core , leafLeft);
+         stalk,
+    //     petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
+         leafRight, leafLeft,
+         core);
       
       scene = new Scene(pane, 200, 200);
       stage.setScene(scene);

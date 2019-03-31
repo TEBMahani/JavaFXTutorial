@@ -10,6 +10,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -128,6 +129,18 @@ public class Transitions{
       
    } // End of RotateTransition rotate(Duration duration, Shape shape, double rotate)
    
+   public static ScaleTransition scale(Duration duration, Shape shape) {
+      
+      ScaleTransition st;
+      
+      st = new ScaleTransition(duration, shape);
+      st.setToX(5);
+      st.setToY(170);
+      
+      return st;
+      
+   } // End of scale(Duration duration, Shape shape)
+   
    public static SequentialTransition sequential(Animation[] animations) {
       
       SequentialTransition st;
@@ -146,7 +159,7 @@ public class Transitions{
       TranslateTransition tt;
       
       tt = new TranslateTransition(duration, shape);
-      tt.setByX(35);
+      tt.setByX(30);
       tt.setCycleCount(1);
       
       return tt;
