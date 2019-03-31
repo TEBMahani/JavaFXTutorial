@@ -13,6 +13,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.StrokeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -86,8 +87,8 @@ public class Main
       Ellipse petal;
       
       petal = new Ellipse(centerX, centerY, 20, 15); 
-      petal.setFill(Color.GREY);
-   //   petal.setStroke(Color.PLUM);
+      petal.setFill(null);
+      petal.setStroke(null);
       petal.setRotate(rotate);
       
       return petal;
@@ -128,6 +129,7 @@ public class Main
          petal8FillTransition;
       ParallelTransition 
          parallelTransition,
+         petalsStrokeParallelTransition,
          totalParallelTransition;
       PathTransition
          leafLeftPathTransition,
@@ -137,6 +139,15 @@ public class Main
       SequentialTransition 
          sequentialTransition,
          petalsSequaentialTransition;
+      StrokeTransition
+         petal1StrokeTransition,
+         petal2StrokeTransition,
+         petal3StrokeTransition,
+         petal4StrokeTransition,
+         petal5StrokeTransition,
+         petal6StrokeTransition,
+         petal7StrokeTransition,
+         petal8StrokeTransition;
       TranslateTransition leafRightTranslateTransition;
       
       Pane pane;
@@ -157,6 +168,7 @@ public class Main
       petal6 = this.petal(125, 100, 180);
       petal7 = this.petal(115, 120, 45);
       petal8 = this.petal(100, 130, 90);
+      
       petal1FillTransition = Transitions.fill(Duration.seconds(5), petal1);
       petal2FillTransition = Transitions.fill(Duration.seconds(5), petal2);
       petal3FillTransition = Transitions.fill(Duration.seconds(5), petal3);
@@ -166,6 +178,15 @@ public class Main
       petal7FillTransition = Transitions.fill(Duration.seconds(5), petal7);
       petal8FillTransition = Transitions.fill(Duration.seconds(5), petal8);
       
+      petal1StrokeTransition = Transitions.stroke(Duration.seconds(1), petal1);
+      petal2StrokeTransition = Transitions.stroke(Duration.seconds(2), petal2);
+      petal3StrokeTransition = Transitions.stroke(Duration.seconds(3), petal3);
+      petal4StrokeTransition = Transitions.stroke(Duration.seconds(4), petal4);
+      petal5StrokeTransition = Transitions.stroke(Duration.seconds(5), petal5);
+      petal6StrokeTransition = Transitions.stroke(Duration.seconds(4), petal6);
+      petal7StrokeTransition = Transitions.stroke(Duration.seconds(3), petal7);
+      petal8StrokeTransition = Transitions.stroke(Duration.seconds(2), petal8);
+      
       leafLeft = this.leaf();
       leafLeftPathTransition = Transitions.path(Duration.seconds(10), leafLeft, "Left");
       leafRight = this.leaf();
@@ -174,8 +195,9 @@ public class Main
       leafRightTranslateTransition = Transitions.translate(Duration.seconds(2), leafRight);
       
       parallelTransition = Transitions.paralle(new Animation[] {leafLeftPathTransition, leafRightPathTransition});
-      petalsSequaentialTransition = Transitions.sequential(new Animation[] {petal1FillTransition, petal2FillTransition, petal3FillTransition, petal4FillTransition, petal5FillTransition, petal6FillTransition, petal7FillTransition, petal8FillTransition});
-      sequentialTransition = Transitions.sequential(new Animation[] {stalkScaleTransition, parallelTransition, leafRightRotateTransition, leafRightTranslateTransition, petalsSequaentialTransition});
+      petalsSequaentialTransition = Transitions.sequential(new Animation[] {petal8FillTransition, petal1FillTransition, petal2FillTransition, petal3FillTransition, petal4FillTransition, petal5FillTransition, petal6FillTransition, petal7FillTransition});
+      petalsStrokeParallelTransition = Transitions.paralle(new Animation[] {petal8StrokeTransition, petal1StrokeTransition, petal2StrokeTransition, petal3StrokeTransition, petal4StrokeTransition, petal5StrokeTransition, petal6StrokeTransition, petal7StrokeTransition});
+      sequentialTransition = Transitions.sequential(new Animation[] {stalkScaleTransition, parallelTransition, leafRightRotateTransition, leafRightTranslateTransition, petalsSequaentialTransition, petalsStrokeParallelTransition});
       totalParallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, sequentialTransition});
       totalParallelTransition.play();
       

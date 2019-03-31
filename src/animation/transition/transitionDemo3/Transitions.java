@@ -13,6 +13,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.StrokeTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
@@ -63,13 +64,15 @@ public class Transitions{
       FillTransition ft;
       
       ft = new FillTransition(duration);
-         ft.setToValue(Color.PURPLE);
-         ft.setShape(shape);
-         ft.setCycleCount(1);
+      
+      ft.setFromValue(Color.GREY);
+      ft.setToValue(Color.PURPLE);
+      ft.setShape(shape);
+      ft.setCycleCount(1);
       
       return ft;
       
-   }
+   } // End of fill(Duration duration, Shape shape)
    
    public static ParallelTransition paralle(Animation[] animations) {
       
@@ -168,6 +171,20 @@ public class Transitions{
       return st;
       
    } // End of sequential(Animation[] animations)
+   
+   public static StrokeTransition stroke(Duration duration, Shape shape) {
+      
+      StrokeTransition st;
+      
+      st = new StrokeTransition(duration, shape);
+      st.setFromValue(Color.PURPLE);
+      st.setToValue(Color.PLUM);
+      st.setCycleCount(Timeline.INDEFINITE);
+      st.setAutoReverse(true);
+      
+      return st;
+      
+   } // End of stroke(Duration duration, Shape shape)
    
    public static TranslateTransition translate(Duration duration, Shape shape) {
       
