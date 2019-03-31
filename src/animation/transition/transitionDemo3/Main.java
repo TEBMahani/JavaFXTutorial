@@ -9,7 +9,9 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -115,7 +117,9 @@ public class Main
       PathTransition
          leafLeftPathTransition,
          leafRightPathTransition;
+      RotateTransition leafRightRotateTransition;
       SequentialTransition sequentialTransition;
+      TranslateTransition leafRightTranslateTransition;
       
       Pane pane;
       Scene scene;
@@ -136,9 +140,11 @@ public class Main
       leafLeftPathTransition = Transitions.path(Duration.seconds(10), leafLeft, "Left");
       leafRight = this.leaf();
       leafRightPathTransition = Transitions.path(Duration.seconds(10), leafRight, "Right");
+      leafRightRotateTransition = Transitions.rotate(Duration.seconds(5), leafRight, 225);
+      leafRightTranslateTransition = Transitions.translate(Duration.seconds(2), leafRight);
       
       parallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, leafLeftPathTransition, leafRightPathTransition});
-      sequentialTransition = Transitions.sequential(new Animation[] {parallelTransition});
+      sequentialTransition = Transitions.sequential(new Animation[] {parallelTransition, leafRightRotateTransition, leafRightTranslateTransition});
       sequentialTransition.play();
       
       pane = new Pane();

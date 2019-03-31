@@ -9,8 +9,9 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.QuadCurveTo;
@@ -46,7 +47,7 @@ public class Transitions{
       fd = new FadeTransition(duration, shape);
       fd.setFromValue(1.);
       fd.setToValue(0.2);
-      fd.setCycleCount(Timeline.INDEFINITE);
+      fd.setCycleCount(2);
       fd.setAutoReverse(true);
       
       return fd;
@@ -113,6 +114,19 @@ public class Transitions{
       
    } // End of path(Duration duration, Shape shape, String side)
    
+   public static RotateTransition rotate(Duration duration, Shape shape, double rotate) {
+      
+      RotateTransition rt;
+      
+      rt = new RotateTransition(duration, shape);
+    //  rt.setFromAngle(0);
+      rt.setToAngle(rotate);
+      rt.setCycleCount(1);
+      
+      return rt;
+      
+   } // End of RotateTransition rotate(Duration duration, Shape shape, double rotate)
+   
    public static SequentialTransition sequential(Animation[] animations) {
       
       SequentialTransition st;
@@ -125,6 +139,18 @@ public class Transitions{
       return st;
       
    } // End of sequential(Animation[] animations)
+   
+   public static TranslateTransition translate(Duration duration, Shape shape) {
+      
+      TranslateTransition tt;
+      
+      tt = new TranslateTransition(duration, shape);
+      tt.setByX(35);
+      tt.setCycleCount(1);
+      
+      return tt;
+      
+   } // End of translate(Duration duration, Shape shape)
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                         //	*** Setter Methods ***
