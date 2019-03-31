@@ -5,12 +5,11 @@
  */
 package animation.transition.transitionDemo3;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -45,75 +44,6 @@ public class Main
 
 	// ***********************************************************************************************************************
                               // Methods
-   
-   public static void main(String[] args) {
-      launch(args);
-   } // End of main(String[] args)
-   
-   @Override
-   public void start(Stage stage) {
-            
-      List<Animation> animations;
-      
-      Circle core;
-      Ellipse
-         petal1,
-         petal2,
-         petal3,
-         petal4,
-         petal5,
-         petal6,
-         petal7,
-         petal8;
-      Path 
-         leafLeft,
-         leafRight;
-      
-      FadeTransition coreFadeTransition;
-      ParallelTransition parallelTransition;
-      PathTransition
-         leafLeftPathTransition,
-         leafRightPathTransition;
-      
-      Pane pane;
-      Scene scene;
-      
-      core = this.core();
-      coreFadeTransition = Transitions.fade(Duration.seconds(5), core);
-      
-      petal1 = this.petal(85, 120, 135);
-      petal2 = this.petal(75, 100, 180);
-      petal3 = this.petal(80, 80, 45);
-      petal4 = this.petal(100, 70, 90);
-      petal5 = this.petal(120, 80, 135);
-      petal6 = this.petal(125, 100, 180);
-      petal7 = this.petal(115, 120, 45);
-      petal8 = this.petal(100, 130, 90);
-      
-      leafLeft = this.leaf();
-      leafLeftPathTransition = Transitions.path(Duration.seconds(10), leafLeft, "Left");
-      leafRight = this.leaf();
-      leafRightPathTransition = Transitions.path(Duration.seconds(10), leafRight, "Right");
-      
-      animations = new ArrayList<>();
-      animations.add(coreFadeTransition);
-      animations.add(leafLeftPathTransition);
-      animations.add(leafRightPathTransition);
-      
-      parallelTransition = Transitions.paralle(animations);
-      parallelTransition.play();
-      
-      pane = new Pane();
-      pane.setStyle("-fx-background-color: grey");
-      pane.getChildren().addAll(
-         petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
-         leafRight, core , leafLeft);
-      
-      scene = new Scene(pane, 200, 200);
-      stage.setScene(scene);
-      stage.show();
-      
-   } // End of start(Stage stage)
    
    private Circle core() {
       
@@ -157,7 +87,71 @@ public class Main
       
       return petal;
       
-   } // End of petal(double centerX, double centerY)
+   } // End of petal(double centerX, double centerY, double rotate)
+   
+   public static void main(String[] args) {
+      launch(args);
+   } // End of main(String[] args)
+   
+   @Override
+   public void start(Stage stage) {
+      
+      Circle core;
+      Ellipse
+         petal1,
+         petal2,
+         petal3,
+         petal4,
+         petal5,
+         petal6,
+         petal7,
+         petal8;
+      Path 
+         leafLeft,
+         leafRight;
+      
+      FadeTransition coreFadeTransition;
+      ParallelTransition parallelTransition;
+      PathTransition
+         leafLeftPathTransition,
+         leafRightPathTransition;
+      SequentialTransition sequentialTransition;
+      
+      Pane pane;
+      Scene scene;
+      
+      core = this.core();
+      coreFadeTransition = Transitions.fade(Duration.seconds(5), core);
+      
+      petal1 = this.petal(85, 120, 135);
+      petal2 = this.petal(75, 100, 180);
+      petal3 = this.petal(80, 80, 45);
+      petal4 = this.petal(100, 70, 90);
+      petal5 = this.petal(120, 80, 135);
+      petal6 = this.petal(125, 100, 180);
+      petal7 = this.petal(115, 120, 45);
+      petal8 = this.petal(100, 130, 90);
+      
+      leafLeft = this.leaf();
+      leafLeftPathTransition = Transitions.path(Duration.seconds(10), leafLeft, "Left");
+      leafRight = this.leaf();
+      leafRightPathTransition = Transitions.path(Duration.seconds(10), leafRight, "Right");
+      
+      parallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, leafLeftPathTransition, leafRightPathTransition});
+      sequentialTransition = Transitions.sequential(new Animation[] {parallelTransition});
+      sequentialTransition.play();
+      
+      pane = new Pane();
+      pane.setStyle("-fx-background-color: grey");
+      pane.getChildren().addAll(
+         petal1, petal2, petal3, petal4, petal5, petal6, petal7, petal8,
+         leafRight, core , leafLeft);
+      
+      scene = new Scene(pane, 200, 200);
+      stage.setScene(scene);
+      stage.show();
+      
+   } // End of start(Stage stage)
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                         //	*** Setter Methods ***

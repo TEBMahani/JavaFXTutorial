@@ -5,11 +5,11 @@
  */
 package animation.transition.transitionDemo3;
 
-import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -53,7 +53,7 @@ public class Transitions{
       
    } // End of fade(Duration duration, Shape shape)
    
-   public static ParallelTransition paralle(List<Animation> animations) {
+   public static ParallelTransition paralle(Animation[] animations) {
       
       ParallelTransition pt;
       
@@ -64,7 +64,7 @@ public class Transitions{
       
       return pt;
       
-   }
+   } // End of paralle(Animation[] animations)
    
    private static Path leftPath() {
       
@@ -112,6 +112,19 @@ public class Transitions{
       return pt;
       
    } // End of path(Duration duration, Shape shape, String side)
+   
+   public static SequentialTransition sequential(Animation[] animations) {
+      
+      SequentialTransition st;
+      
+      st = new SequentialTransition();
+      st.setCycleCount(1);
+      
+      st.getChildren().addAll(animations);
+      
+      return st;
+      
+   } // End of sequential(Animation[] animations)
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                         //	*** Setter Methods ***
