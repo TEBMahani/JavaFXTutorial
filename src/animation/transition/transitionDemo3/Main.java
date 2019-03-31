@@ -113,7 +113,9 @@ public class Main
          leafRight;
       
       FadeTransition coreFadeTransition;
-      ParallelTransition parallelTransition;
+      ParallelTransition 
+         parallelTransition,
+         totalParallelTransition;
       PathTransition
          leafLeftPathTransition,
          leafRightPathTransition;
@@ -143,9 +145,10 @@ public class Main
       leafRightRotateTransition = Transitions.rotate(Duration.seconds(5), leafRight, 225);
       leafRightTranslateTransition = Transitions.translate(Duration.seconds(2), leafRight);
       
-      parallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, leafLeftPathTransition, leafRightPathTransition});
+      parallelTransition = Transitions.paralle(new Animation[] {leafLeftPathTransition, leafRightPathTransition});
       sequentialTransition = Transitions.sequential(new Animation[] {parallelTransition, leafRightRotateTransition, leafRightTranslateTransition});
-      sequentialTransition.play();
+      totalParallelTransition = Transitions.paralle(new Animation[] {coreFadeTransition, sequentialTransition});
+      totalParallelTransition.play();
       
       pane = new Pane();
       pane.setStyle("-fx-background-color: grey");

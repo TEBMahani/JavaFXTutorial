@@ -11,6 +11,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -47,7 +48,7 @@ public class Transitions{
       fd = new FadeTransition(duration, shape);
       fd.setFromValue(1.);
       fd.setToValue(0.2);
-      fd.setCycleCount(2);
+      fd.setCycleCount(Timeline.INDEFINITE);
       fd.setAutoReverse(true);
       
       return fd;
