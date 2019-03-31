@@ -5,6 +5,12 @@
  */
 package animation.transition.transitionDemo3;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -46,6 +52,8 @@ public class Main
    
    @Override
    public void start(Stage stage) {
+            
+      List<Animation> animations;
       
       Circle core;
       Ellipse
@@ -61,11 +69,17 @@ public class Main
          leafLeft,
          leafRight;
       
+      FadeTransition coreFadeTransition;
+      ParallelTransition parallelTransition;
+      PathTransition
+         leafLeftPathTransition,
+         leafRightPathTransition;
+      
       Pane pane;
       Scene scene;
       
       core = this.core();
-      Transitions.fade(Duration.seconds(5), core).play();
+      coreFadeTransition = Transitions.fade(Duration.seconds(5), core);
       
       petal1 = this.petal(85, 120, 135);
       petal2 = this.petal(75, 100, 180);
@@ -77,9 +91,17 @@ public class Main
       petal8 = this.petal(100, 130, 90);
       
       leafLeft = this.leaf();
-      Transitions.path(Duration.seconds(10), leafLeft, "Left").play();
+      leafLeftPathTransition = Transitions.path(Duration.seconds(10), leafLeft, "Left");
       leafRight = this.leaf();
-      Transitions.path(Duration.seconds(10), leafRight, "Right").play();
+      leafRightPathTransition = Transitions.path(Duration.seconds(10), leafRight, "Right");
+      
+      animations = new ArrayList<>();
+      animations.add(coreFadeTransition);
+      animations.add(leafLeftPathTransition);
+      animations.add(leafRightPathTransition);
+      
+      parallelTransition = Transitions.paralle(animations);
+      parallelTransition.play();
       
       pane = new Pane();
       pane.setStyle("-fx-background-color: grey");
